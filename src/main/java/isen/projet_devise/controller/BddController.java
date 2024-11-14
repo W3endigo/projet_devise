@@ -1,16 +1,26 @@
 package isen.projet_devise.controller;
 
-import isen.projet_devise.service.BddService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import isen.projet_devise.service.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/upload")
+@RequestMapping("/api")
 public class BddController {
 
     private final BddService bddService;
 
     public BddController(BddService bddService) {
         this.bddService = bddService;
+    }
+
+    @PostMapping("/rate")
+    public ResponseEntity<Boolean> postRate(@RequestPart("rate") MultipartFile rate) {
+        try {
+            return ResponseEntity.ok(bddService.postRate(rate));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
