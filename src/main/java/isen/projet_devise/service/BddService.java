@@ -3,7 +3,9 @@ package isen.projet_devise.service;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import isen.projet_devise.dao.BddDAO;
+import isen.projet_devise.dao.RateRepository;
 import isen.projet_devise.model.Rate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -60,6 +62,17 @@ public class BddService {
     private boolean isCsvFile(MultipartFile file) {
         String contentType = file.getContentType();
         return "text/csv".equals(contentType) || Objects.requireNonNull(file.getOriginalFilename()).endsWith(".csv");
+    }
+
+    @Autowired
+    private RateRepository coursRepository;
+
+    public Iterable<Rate> getAllRates() {
+        return coursRepository.findAll();
+    }
+
+    public Iterable<Rate> getRateByTicker(String ticker) {
+        return coursRepository.findRateByTicker(ticker);
     }
 
 }
