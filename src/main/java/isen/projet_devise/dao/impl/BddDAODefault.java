@@ -2,7 +2,6 @@ package isen.projet_devise.dao.impl;
 
 import isen.projet_devise.dao.BddDAO;
 import isen.projet_devise.model.Rate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -11,8 +10,11 @@ import java.util.List;
 @Repository
 public class BddDAODefault implements BddDAO {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public BddDAODefault(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public boolean checkTicker(String ticker) {
@@ -34,6 +36,18 @@ public class BddDAODefault implements BddDAO {
             ps.setDouble(2, rate.getRate());
             ps.setString(3, rate.getTicker());
         });
+    }
+
+    @Override
+    public List<String> getTickers() {
+        String sql = "SELECT name FROM ticker";
+        return jdbcTemplate.queryForList(sql, String.class);
+    }
+
+    @Override
+    public List<Rate> getRatesByTicker(String ticker) {
+        String sql = "SELECT date, value FROM rate WHERE ticker = ?";
+        return jdbcTemplate.query(sql, (rs, _) -> new Rate(rs.getTimestamp("date"), rs.getDouble("value"), ticker), ticker);
     }
 
 }

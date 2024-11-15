@@ -2,10 +2,11 @@ package isen.projet_devise.controller;
 
 import isen.projet_devise.model.Rate;
 import isen.projet_devise.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -26,15 +27,22 @@ public class BddController {
         }
     }
 
-    @GetMapping("/rates")
-    public Iterable<Rate> getAllRates() {
-        return bddService.getAllRates();
+    @GetMapping("/tickers")
+    public ResponseEntity<List<String>> getTickers() {
+        try {
+            return ResponseEntity.ok(bddService.getTickers());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/rates/{ticker}")
-    public Iterable<Rate> getRateByTicker(@PathVariable String ticker) {
-        return bddService.getRateByTicker(ticker);
+    public ResponseEntity<List<Rate>> getTickers(@PathVariable String ticker) {
+        try {
+            return ResponseEntity.ok(bddService.getRateByTicker(ticker));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
-
 
 }

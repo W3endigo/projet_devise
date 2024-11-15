@@ -13,4 +13,8 @@ public interface BddDAO {
     void insertTicker(String ticker);
 
     void insertRates(List<Rate> rates);
+
+    List<String> getTickers();
+
+    List<Rate> getRatesByTicker(String ticker);
 }
