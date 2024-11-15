@@ -1,5 +1,6 @@
 package isen.projet_devise.controller;
 
+import isen.projet_devise.model.Rate;
 import isen.projet_devise.service.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,4 +24,6 @@ public class BddController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+
 }
