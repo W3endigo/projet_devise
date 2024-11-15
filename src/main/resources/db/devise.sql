@@ -13,9 +13,9 @@ USE exchange_rates_db;
 # Table: devise
 #------------------------------------------------------------
 
-CREATE TABLE devise(
-        ticker Varchar (5) NOT NULL
-	,CONSTRAINT Devise_PK PRIMARY KEY (ticker)
+CREATE TABLE ticker(
+        name Varchar (5) NOT NULL
+	,CONSTRAINT Devise_PK PRIMARY KEY (name)
 )ENGINE=InnoDB;
 
 
@@ -23,12 +23,12 @@ CREATE TABLE devise(
 # Table: cours
 #------------------------------------------------------------
 
-CREATE TABLE cours(
+CREATE TABLE rate(
         id    Int  Auto_increment  NOT NULL ,
         date  Datetime NOT NULL ,
-        cours Double NOT NULL ,
+        value Double NOT NULL ,
         ticker   Varchar (5) NOT NULL
 	,CONSTRAINT cours_PK PRIMARY KEY (id)
 
-	,CONSTRAINT cours_Devise_FK FOREIGN KEY (ticker) REFERENCES devise(ticker)
+	,CONSTRAINT cours_Devise_FK FOREIGN KEY (ticker) REFERENCES ticker(name)
 )ENGINE=InnoDB;
