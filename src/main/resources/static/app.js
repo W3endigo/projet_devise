@@ -1,3 +1,11 @@
+class Rate {
+    constructor(date, rate, ticker) {
+        this.date = date;
+        this.rate = rate;
+        this.ticker = ticker;
+    }
+}
+
 // Fonction pour remplir le sélecteur de devises
 function loadTickers() {
     fetch('/api/tickers')
@@ -23,8 +31,16 @@ function loadTickers() {
 }
 
 // Fonction pour mettre à jour le graphique
-function updateChart(labels, data) {
+function updateChart(rates) {
+    const labels = rates.map(rate => rate.date);
+    const data = rates.map(rate => rate.rate);
+
     let ctx = document.getElementById('currencyChart').getContext('2d');
+
+    // Check if a chart instance already exists and destroy it
+    if (window.currencyChart instanceof Chart) {
+        window.currencyChart.destroy();
+    }
 
     window.currencyChart = new Chart(ctx, {
         type: 'line',
@@ -70,9 +86,13 @@ function loadRates(ticker) {
             return response.json();
         })
         .then(data => {
-            const rates = data.map(rate => rate.value); // Valeurs des taux
-            const labels = data.map(rate => rate.date); // Dates associées
-            updateChart(labels, rates); // Mettre à jour le graphique
+            let valeurs = []
+            console.log("ici");
+            data.forEach(item => {
+                valeurs.push(new Rate(item.date, item.rate, item.ticker));
+            });
+            console.log(valeurs);
+            updateChart(valeurs); // Mettre à jour le graphi
         })
         .catch(error => {
             console.error('Erreur:', error);
