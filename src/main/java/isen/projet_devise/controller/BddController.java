@@ -18,6 +18,11 @@ public class BddController {
         this.bddService = bddService;
     }
 
+    @GetMapping("/")
+    public String home() {
+        return "index.html"; // Rends le fichier index.html dans templates
+    }
+
     @PostMapping("/rates")
     public ResponseEntity<Boolean> postRate(@RequestPart("rate") MultipartFile rate) {
         try {
@@ -39,6 +44,7 @@ public class BddController {
     @GetMapping("/rates/{ticker}")
     public ResponseEntity<List<Rate>> getTickers(@PathVariable String ticker) {
         try {
+            System.out.println(bddService.getRateByTicker(ticker));
             return ResponseEntity.ok(bddService.getRateByTicker(ticker));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();

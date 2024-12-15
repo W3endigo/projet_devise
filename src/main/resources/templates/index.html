@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertisseur de Devises</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<!-- Header -->
+<header>
+    <h1>Convertisseur de Devises</h1>
+</header>
+
+<!-- Sélecteur de devises -->
+<div class="currency-section">
+    <label for="currency">Choisissez une devise : </label>
+    <select id="currency"></select>
+</div>
+
+<!-- Graphique du cours -->
+<div class="chart-container">
+    <canvas id="currencyChart" width="600" height="400"></canvas>
+</div>
+
+<!-- Importation de devises via CSV -->
+<div class="csv-import">
+    <label for="csvFile">Ajouter de nouvelles devises (fichier CSV) :</label>
+    <input type="file" id="csvFile" accept=".csv">
+    <button id="uploadCsvBtn">Importer</button>
+    <p id="csvMessage" class="message"></p>
+</div>
+
+<!-- Message général -->
+<p id="generalMessage" class="message">Sélectionnez une devise pour afficher son historique.</p>
+
+<!-- Script -->
+<script src="/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+
+
+<!-- Footer -->
+<footer>
+    <h3>Made with ❤️</h3>
+</footer>
+</body>
+</html>

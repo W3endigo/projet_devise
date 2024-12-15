@@ -47,7 +47,10 @@ public class BddDAODefault implements BddDAO {
     @Override
     public List<Rate> getRatesByTicker(String ticker) {
         String sql = "SELECT date, value FROM rate WHERE ticker = ?";
-        return jdbcTemplate.query(sql, (rs, _) -> new Rate(rs.getTimestamp("date"), rs.getDouble("value"), ticker), ticker);
+        return jdbcTemplate.query(sql,
+                (rs, _) -> {
+                    return new Rate(rs.getTimestamp("date"), rs.getDouble("value"), ticker);
+                }, ticker);
     }
 
 }
