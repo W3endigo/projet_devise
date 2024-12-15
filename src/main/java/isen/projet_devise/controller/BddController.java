@@ -18,6 +18,11 @@ public class BddController {
         this.bddService = bddService;
     }
 
+    @GetMapping("/")
+    public String home() {
+        return "index.html"; // Rends le fichier index.html dans templates
+    }
+
     @PostMapping("/rates")
     public ResponseEntity<Boolean> postRate(@RequestPart("rate") MultipartFile rate) {
         try {
