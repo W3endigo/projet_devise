@@ -143,5 +143,6 @@ document.getElementById('uploadCsvBtn').addEventListener('click', () => {
 
 // Charger les tickers au chargement de la page
 document.addEventListener('DOMContentLoaded', () => {
-    loadTickers();
+    loadTickers();  // Charger les tickers
+    loadRates('USD'); // Charger les taux pour USD dès le début
 });
